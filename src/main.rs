@@ -18,7 +18,6 @@ async fn health_checker_handler() -> impl Responder {
     };
     HttpResponse::Ok().json(response_json)
 }
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     if std::env::var_os("RUST_LOG").is_none() {
