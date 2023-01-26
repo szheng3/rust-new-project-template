@@ -25,7 +25,7 @@ async fn main() -> std::io::Result<()> {
     }
     env_logger::init();
 
-    println!("🚀 Server started successfully");
+    println!("Server started successfully");
 
     HttpServer::new(move || {
         App::new()
