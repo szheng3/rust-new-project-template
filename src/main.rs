@@ -21,7 +21,7 @@ pub struct GenericResponse {
     pub message: String,
 }
 
-#[get("/api/hello")]
+#[get("/api/summary")]
 async fn health_checker_handler() -> impl Responder {
     const MESSAGE: &str = "Build Simple CRUD API with Rust and Actix Web";
     let do_steps = || -> Result<String, ExitFailure> {
