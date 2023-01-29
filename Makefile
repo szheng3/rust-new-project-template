@@ -16,7 +16,9 @@ test:
 	cargo test --quiet
 
 run:
-	cargo run
+#	export LIBTORCH=/opt/homebrew/Cellar/pytorch/1.13.1                                                    2 ✘  18s  16:40:49
+#	export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
+	export LIBTORCH=/opt/homebrew/Cellar/pytorch/1.13.1 &&export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH&&cargo run
 
 release:
 	cargo build --release
