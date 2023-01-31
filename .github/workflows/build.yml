@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_REGISTRY: docker.io
-  DOCKER_IMAGE_NAME: sz-rust-ml
+  DOCKER_IMAGE_NAME: szheng3/sz-rust-m
 #  DOCKER_IMAGE_TAG: ${{ env.GITHUB_SHA }}
 
 jobs:
