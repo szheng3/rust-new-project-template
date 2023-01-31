@@ -1,0 +1,27 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOCKER_REGISTRY: docker.io
+  DOCKER_IMAGE_NAME: sz-rust-ml
+  DOCKER_IMAGE_TAG: ${{ env.GITHUB_SHA }}
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}
+          push-access-token: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}

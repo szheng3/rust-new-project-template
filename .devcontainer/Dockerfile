@@ -14,5 +14,8 @@ RUN apt-get update && \
 #RUN add-apt-repository ppa:ubuntu-toolchain-r/test
 
 # Update the package repository and install PyTorch
+#RUN apt-get update && \
+#    apt-get install -y python3-torch
+
 RUN apt-get update && \
-    apt-get install -y python3-torch
+    apt-get install docker.io -y
