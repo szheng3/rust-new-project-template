@@ -23,5 +23,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ env.GITHUB_SHA }}
+          tags: szheng3/sz-rust-ml:v1.0.0
           push-access-token: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
