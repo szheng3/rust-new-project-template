@@ -9,20 +9,22 @@ RUN apt-get update && \
 #RUN add-apt-repository ppa:ubuntu-toolchain-r/test
 
 # Update the package repository and install PyTorch
-RUN apt-get update && \
-    apt-get install -y python3-torch
 
 # Set the working directory
 WORKDIR /app
-
+#RUN curl -LJO https://download.pytorch.org/libtorch/cu117/libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcu117.zip && unzip libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcu117.zip
+#RUN curl -LJO https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcpu.zip && unzip libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcpu.zip
 # Copy the application code
 COPY . .
+#ENV LIBTORCH='/app/libtorch'
+#ENV LD_LIBRARY_PATH='${LIBTORCH}/lib:$LD_LIBRARY_PATH'
 
 # Build the application
 RUN cargo build --release
 
 # Expose the application port
-EXPOSE 8080
+EXPOSE 8000
 
 # Set the command to run when the container starts
-CMD ["./target/release/rust-new-project-template"]
+#CMD ["./target/release/rust-new-project-template"]
+CMD ["cargo", "run", "--release"]
