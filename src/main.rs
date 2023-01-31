@@ -34,7 +34,7 @@ async fn api_health_handler() -> HttpResponse {
 
     let response_json = &GenericResponse {
         status: "success".to_string(),
-        message: result.to_string(),
+        message:"Health Check".to_string(),
     };
     HttpResponse::Ok().json(response_json)
 }
