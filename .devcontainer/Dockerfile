@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get install -y software-properties-common python3-dev python3-pip libopenblas-dev libopenmpi-dev
 
 # Add the PyTorch repository
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test
+#RUN add-apt-repository ppa:ubuntu-toolchain-r/test
 
 # Update the package repository and install PyTorch
 RUN apt-get update && \
