@@ -8,7 +8,7 @@ In this week, I learned some basics of Rust and the usage of Rust Project Templa
 ### Usage
 > Run `make run` in the terminal, it will launch a server.
 
-> Run `curl -v http://localhost:8000/api/hello` to get the JSON response.
+> Run `curl -v http://localhost:8000/api/health` to get the JSON response.
 
 ## References
 
