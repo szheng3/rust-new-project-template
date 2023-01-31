@@ -25,4 +25,4 @@ RUN cargo build --release
 EXPOSE 8080
 
 # Set the command to run when the container starts
-CMD ["./target/release/<app-binary-name>"]
+CMD ["./target/release/rust-new-project-template"]
