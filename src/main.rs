@@ -28,8 +28,19 @@ struct Info {
     context: String,
 }
 
+
+#[get("/api/health")]
+async fn api_health_handler() -> HttpResponse {
+
+    let response_json = &GenericResponse {
+        status: "success".to_string(),
+        message: result.to_string(),
+    };
+    HttpResponse::Ok().json(response_json)
+}
+
 #[get("/api/summary")]
-async fn health_checker_handler(info: web::Query<Info>) -> impl Responder {
+async fn api_summary_handler(info: web::Query<Info>) -> impl Responder {
     const MESSAGE: &str = "Build Simple CRUD API with Rust and Actix Web";
     // println!("{}", info.context.into_iter().collect());
     let do_steps = move || -> Result<String, ExitFailure> {
@@ -104,7 +115,8 @@ async fn main() -> Result<(), ExitFailure> {
 
     HttpServer::new(move || {
         App::new()
-            .service(health_checker_handler)
+            .service(api_summary_handler)
+            .service(api_health_handler)
             .wrap(Logger::default())
     })
         .bind(("127.0.0.1", 8000))?
