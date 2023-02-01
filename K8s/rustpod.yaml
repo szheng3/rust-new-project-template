@@ -38,19 +38,20 @@ spec:
 #            failureThreshold: 10
           resources:
             requests:
-              cpu: 125m
-              memory: 256m
+              ephemeral-storage: 10Gi
+              cpu: 1250m
+              memory: 10Gi
 #      imagePullSecrets:
 #        - name: regcred
-#      affinity:
-#        nodeAffinity:
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#              - matchExpressions:
-#                  - key: cloud.google.com/gke-spot
-#                    operator: In
-#                    values:
-#                      - "true"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-spot
+                    operator: In
+                    values:
+                      - "true"
 #      affinity:
 #        podAntiAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:

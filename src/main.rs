@@ -54,7 +54,7 @@ async fn api_health_handler2() -> HttpResponse {
 async fn api_summary_handler(info: web::Query<Info>) -> impl Responder {
     const MESSAGE: &str = "Build Simple CRUD API with Rust and Actix Web";
     // println!("{}", info.context.into_iter().collect());
-    let do_steps = move || -> Result<String, ExitFailure> {
+    let do_steps = move || -> Result<SummarizationModel, ExitFailure> {
         let config_resource = Box::new(RemoteResource::from_pretrained(
             BartConfigResources::DISTILBART_CNN_6_6,
         ));
@@ -84,30 +84,34 @@ async fn api_summary_handler(info: web::Query<Info>) -> impl Responder {
 
         let summarization_model = SummarizationModel::new(summarization_config)?;
 //
-        let mut input = [String::new(); 1];
-        input[0] = info.context.to_owned();
 
 
-        // let input = info.context.as_slice();
-        let _output = summarization_model.summarize(&input);
-        let mut mutable_string = String::from(_output.join(" "));
 
-        Ok(mutable_string)
+        // let _output = summarization_model.summarize(&input);
+        // let mut mutable_string = String::from(_output.join(" "));
+
+        Ok(summarization_model)
     };
 
-    let result = thread::spawn(move || {
-        match do_steps() {
-            Ok(report) => {
-                report
-            }
-            Err(err) => {
-                "error".to_string()
-
-                // or write a better logic
-            }
-        }
+    let summarization_model = thread::spawn(move || {
+        do_steps().unwrap()
+        // match do_steps() {
+        //     Ok(report) => {
+        //         report
+        //     }
+        //     Err(err) => {
+        //         // "error".to_string()
+        //
+        //         // or write a better logic
+        //     }
+        // }
     }).join().expect("Thread panicked");
 
+    let mut input = [String::new(); 1];
+    input[0] = info.context.to_owned();
+
+    let _output = summarization_model.summarize(&input);
+    let mut result = String::from(_output.join(" "));
     let response_json = &GenericResponse {
         status: "success".to_string(),
         message: result.to_string(),
