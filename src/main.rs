@@ -39,6 +39,17 @@ async fn api_health_handler() -> HttpResponse {
     HttpResponse::Ok().json(response_json)
 }
 
+#[get("/")]
+async fn api_health_handler2() -> HttpResponse {
+
+    let response_json = &GenericResponse {
+        status: "success".to_string(),
+        message:"Health Check".to_string(),
+    };
+    HttpResponse::Ok().json(response_json)
+}
+
+
 #[get("/api/summary")]
 async fn api_summary_handler(info: web::Query<Info>) -> impl Responder {
     const MESSAGE: &str = "Build Simple CRUD API with Rust and Actix Web";
@@ -117,6 +128,7 @@ async fn main() -> Result<(), ExitFailure> {
         App::new()
             .service(api_summary_handler)
             .service(api_health_handler)
+            .service(api_health_handler2)
             .wrap(Logger::default())
     })
         .bind(("0.0.0.0", 8000))?

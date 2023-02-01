@@ -16,7 +16,7 @@ spec:
       containers:
         - name: rust-ml
           imagePullPolicy: Always
-          image: szheng3/sz-rust-ml:v1.0.0
+          image: szheng3/sz-rust-ml:latest
           ports:
             - containerPort: 8000
 #          env:
