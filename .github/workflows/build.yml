@@ -24,4 +24,4 @@ jobs:
           context: .
           push: true
           tags: szheng3/sz-rust-ml:v1.0.0
-          push-access-token: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          push-access-token: $DOCKER_REGISTRY_PASSWORD
