@@ -119,7 +119,7 @@ async fn main() -> Result<(), ExitFailure> {
             .service(api_health_handler)
             .wrap(Logger::default())
     })
-        .bind(("127.0.0.1", 8000))?
+        .bind(("0.0.0.0", 8000))?
         .run()
         .await?;
     Ok(())
