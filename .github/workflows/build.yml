@@ -29,3 +29,5 @@ jobs:
           context: .
           push: true
           tags: szheng3/sz-rust-ml:v1.0.0
+          username: szheng3
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
