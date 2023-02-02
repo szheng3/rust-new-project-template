@@ -40,7 +40,7 @@ spec:
             requests:
               ephemeral-storage: 10Gi
               cpu: 1250m
-              memory: 10Gi
+              memory: 3Gi
 #      imagePullSecrets:
 #        - name: regcred
       affinity:

@@ -104,98 +104,46 @@ fn init_summarization_model() -> SummarizationModel {
 }
 
 
-#[get("/api/summary")]
-async fn api_summary_handler(info: web::Query<Info>) -> impl Responder {
-    // INIT_MODEL.call_once(|| {
-    //     unsafe {
-    //         SUMMARIZATION_MODEL = Some(init_summarization_model());
-    //     }
-    // });
-    let summarization_model = unsafe { SUMMARIZATION_MODEL.as_ref().unwrap() };
-
-    let mut input = [String::new(); 1];
-    input[0] = info.context.to_owned();
-
-    let _output = summarization_model.summarize(&input);
-    let mut result = String::new();
-    result = _output.join(" ");
-    let response_json = &GenericResponse {
-        status: "success".to_string(),
-        message: result.to_string(),
-    };
-    HttpResponse::Ok().json(response_json)
-}
-
 // #[get("/api/summary")]
 // async fn api_summary_handler(info: web::Query<Info>) -> impl Responder {
-//     const MESSAGE: &str = "Build Simple CRUD API with Rust and Actix Web";
-//     // println!("{}", info.context.into_iter().collect());
-//     let do_steps = move || -> Result<SummarizationModel, ExitFailure> {
-//         let config_resource = Box::new(RemoteResource::from_pretrained(
-//             BartConfigResources::DISTILBART_CNN_6_6,
-//         ));
-//         let vocab_resource = Box::new(RemoteResource::from_pretrained(
-//             BartVocabResources::DISTILBART_CNN_6_6,
-//         ));
-//         let merges_resource = Box::new(RemoteResource::from_pretrained(
-//             BartMergesResources::DISTILBART_CNN_6_6,
-//         ));
-//         let model_resource = Box::new(RemoteResource::from_pretrained(
-//             BartModelResources::DISTILBART_CNN_6_6,
-//         ));
-//
-//         let summarization_config = SummarizationConfig {
-//             model_resource,
-//             config_resource,
-//             vocab_resource,
-//             merges_resource: Some(merges_resource),
-//             num_beams: 1,
-//             length_penalty: 1.0,
-//             min_length: 56,
-//             max_length: Some(142),
-//             device: Device::Cpu,
-//             ..Default::default()
-//         };
-//
-//
-//
-//
-//         let summarization_model = SummarizationModel::new(summarization_config)?;
-// //
-//
-//
-//
-//         // let _output = summarization_model.summarize(&input);
-//         // let mut mutable_string = String::from(_output.join(" "));
-//
-//         Ok(summarization_model)
-//     };
-//
-//     let summarization_model = thread::spawn(move || {
-//         do_steps().unwrap()
-//         // match do_steps() {
-//         //     Ok(report) => {
-//         //         report
-//         //     }
-//         //     Err(err) => {
-//         //         // "error".to_string()
-//         //
-//         //         // or write a better logic
-//         //     }
-//         // }
-//     }).join().expect("Thread panicked");
+//     // INIT_MODEL.call_once(|| {
+//     //     unsafe {
+//     //         SUMMARIZATION_MODEL = Some(init_summarization_model());
+//     //     }
+//     // });
+//     let summarization_model = unsafe { SUMMARIZATION_MODEL.as_ref().unwrap() };
 //
 //     let mut input = [String::new(); 1];
 //     input[0] = info.context.to_owned();
 //
 //     let _output = summarization_model.summarize(&input);
-//     let mut result = String::from(_output.join(" "));
+//     let mut result = String::new();
+//     result = _output.join(" ");
 //     let response_json = &GenericResponse {
 //         status: "success".to_string(),
 //         message: result.to_string(),
 //     };
 //     HttpResponse::Ok().json(response_json)
 // }
+
+#[get("/api/summary")]
+async fn api_summary_handler(info: web::Query<Info>) -> impl Responder {
+
+
+
+    let summarization_model =init_summarization_model();
+
+    let mut input = [String::new(); 1];
+    input[0] = info.context.to_owned();
+
+    let _output = summarization_model.summarize(&input);
+    let mut result = String::from(_output.join(" "));
+    let response_json = &GenericResponse {
+        status: "success".to_string(),
+        message: result.to_string(),
+    };
+    HttpResponse::Ok().json(response_json)
+}
 
 #[actix_web::main]
 async fn main() -> Result<(), ExitFailure> {
