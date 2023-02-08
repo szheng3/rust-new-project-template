@@ -162,7 +162,7 @@ pub fn fibonacci(n: u32) -> u32 {
 ```
 
 ### Usage
-> Go to week1 `cd week3`
+> Go to week3 `cd week3`
 
 > Run `make bench` in the terminal, it will run the benchmark test for fibonacci.
 
