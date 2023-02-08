@@ -31,6 +31,93 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
 ```
+
+Here is the code from the Kubernetes deployment file.
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust-ml
+  namespace: resume-prod
+spec:
+  selector:
+    matchLabels:
+      app: rust-ml
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: rust-ml
+    spec:
+      containers:
+        - name: rust-ml
+          imagePullPolicy: Always
+          image: szheng3/sz-rust-ml:latest
+          ports:
+            - containerPort: 8000
+
+          resources:
+            requests:
+              ephemeral-storage: 10Gi
+              cpu: 1250m
+              memory: 3Gi
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-spot
+                    operator: In
+                    values:
+                      - "true"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rust-ml
+  namespace: resume-prod
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: rust-ml
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
+```
+
+Here is the code from the Dockerfile.
+```
+# Use a Rust base image
+FROM rust:latest
+
+# Update the package repository and install dependencies
+RUN apt-get update && \
+    apt-get install -y software-properties-common python3-dev python3-pip libopenblas-dev libopenmpi-dev
+
+WORKDIR /app
+
+COPY . .
+
+
+# Build the application
+RUN cargo build --release
+
+# Expose the application port
+EXPOSE 8000
+
+# Set the command to run when the container starts
+#CMD ["./target/release/rust-new-project-template"]
+CMD ["cargo", "run", "--release"]
+
+```
+
 ## References
 
 * [rust-cli-template](https://github.com/kbknapp/rust-cli-template)
