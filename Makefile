@@ -15,12 +15,18 @@ lint:
 test:
 	cargo test --quiet
 
+bench:
+	cargo bench
+
 run:
 #	export LIBTORCH=/opt/homebrew/Cellar/pytorch/1.13.1                                                    2 ✘  18s  16:40:49
 #	export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
-	export LIBTORCH=/opt/homebrew/Cellar/pytorch/1.13.1 &&export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH&&cargo run
+	cargo run
 
 release:
-	export LIBTORCH=/opt/homebrew/Cellar/pytorch/1.13.1 &&export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH&&cargo build --release
+	cargo build --release
+
+make format-check:
+	cargo check
 
 all: format lint test run
