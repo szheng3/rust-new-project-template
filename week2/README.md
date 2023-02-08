@@ -3,15 +3,34 @@
 
 ## Week 2 Progress
 
-This week, I set up a GitHub CICD action pipeline for building, linking, and testing. Additionally, I utilized a Dockerfile to package my Rust services. Furthermore, I deployed the service on Google Cloud Platform using Kubernetes. You can access a demo of the setup at https://apiv2.sszzz.me.
+This week, I set up a GitHub CI/CD action pipeline for building, linking, and testing. Additionally, I utilized a Dockerfile to package my Rust services. Furthermore, I deployed the service on Google Cloud Platform using Kubernetes. You can access a demo of the setup at https://apiv2.sszzz.me.
+> file is located at `.github/workflows`
 
+Here is one of the code snippet from the CI/CD pipeline.
+```
+name: Rust
 
-### Usage
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-> Run `curl -v http://localhost:8000/api/health` to get the JSON response.
-> Run `curl -v https://apiv2.sszzz.me/api/health` to get the JSON response.
+env:
+  CARGO_TERM_COLOR: always
 
+jobs:
+  build:
 
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
+```
 ## References
 
 * [rust-cli-template](https://github.com/kbknapp/rust-cli-template)
