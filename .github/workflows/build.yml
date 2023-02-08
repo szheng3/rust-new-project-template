@@ -27,7 +27,7 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./week2
           push: false
           tags: ${{ secrets.DOCKER_REGISTR_USERNAME }}/sz-rust-ml:latest,${{ secrets.DOCKER_REGISTR_USERNAME }}/sz-rust-ml:${{ github.sha }}
           username: ${{ secrets.DOCKER_REGISTR_USERNAME }}
