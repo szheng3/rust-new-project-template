@@ -1,3 +1,8 @@
+[![Tests](https://github.com/szheng3/rust-new-project-template/actions/workflows/tests.yml/badge.svg)](https://github.com/szheng3/rust-new-project-template/actions/workflows/tests.yml)
+[![Clippy](https://github.com/szheng3/rust-new-project-template/actions/workflows/lint.yml/badge.svg)](https://github.com/szheng3/rust-new-project-template/actions/workflows/lint.yml)
+[![rust](https://github.com/szheng3/rust-new-project-template/actions/workflows/rust.yml/badge.svg)](https://github.com/szheng3/rust-new-project-template/actions/workflows/rust.yml)
+[![publish to Dockerhub](https://github.com/szheng3/rust-new-project-template/actions/workflows/build.yml/badge.svg)](https://github.com/szheng3/rust-new-project-template/actions/workflows/build.yml)
+
 # Weekly Rust Progress Report
 Build a rust the domain of data engineering or machine learning engineering.
 
