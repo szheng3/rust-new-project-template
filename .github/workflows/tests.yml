@@ -1,4 +1,4 @@
-name: Tests
+cname: Tests
 
 on: [push, pull_request]
 
@@ -15,5 +15,5 @@ jobs:
           components: clippy, rustfmt
           override: true
       - name: Run clippy
-        run: make test
+        run: cd week2 && make test
   

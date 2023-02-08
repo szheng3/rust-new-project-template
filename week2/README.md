@@ -4,7 +4,7 @@
 ## Week 2 Progress
 
 This week, I set up a GitHub CI/CD action pipeline for building, linking, and testing. Additionally, I utilized a Dockerfile to package my Rust services. Furthermore, I deployed the service on Google Cloud Platform using Kubernetes. You can access a demo of the setup at https://apiv2.sszzz.me.
-> file is located at `.github/workflows`
+> file is located at [.github/workflows](https://github.com/szheng3/rust-new-project-template/tree/main/.github/workflows)
 
 Here is one of the code snippet from the CI/CD pipeline.
 ```
