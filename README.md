@@ -1,5 +1,5 @@
 # Weekly Rust Progress Report
-Build a useful API server in the domain of data engineering or machine learning engineering.
+Build a rust the domain of data engineering or machine learning engineering.
 
 ## Week 1 Progress
 
@@ -15,10 +15,45 @@ async fn api_health_handler() -> HttpResponse {
     HttpResponse::Ok().json(response_json)
 }
 ```
+### Usage
+
+> Go to week1 `cd week1` 
+
+> Run `make run` in the terminal, it will launch a server.
+
+> Run `curl -v http://localhost:8000/api/health` to get the JSON response.
+
 
 ## Week 2 Progress
 
-This week, I set up a GitHub CICD action pipeline for building, linking, and testing. Additionally, I utilized a Dockerfile to package my Rust services. Furthermore, I deployed the service on Google Cloud Platform using Kubernetes. You can access a demo of the setup at https://apiv2.sszzz.me.
+This week, I set up a GitHub CI/CD action pipeline for building, linking, and testing. Additionally, I utilized a Dockerfile to package my Rust services. Furthermore, I deployed the service on Google Cloud Platform using Kubernetes. You can access a demo of the setup at https://apiv2.sszzz.me.
+> file is located at `.github/workflows`
+
+Here is one of the code snippet from the CI/CD pipeline.
+```
+name: Rust
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
+```
 
 ## Week 3 Progress
 This week, I set up a rust bench. In order to test the performance of the Rust, I write a single fibonacci sequence. The result is shown below.
@@ -33,9 +68,7 @@ pub fn fibonacci(n: u32) -> u32 {
 ```
 
 ### Usage
-> Run `make run` in the terminal, it will launch a server.
-
-> Run `curl -v http://localhost:8000/api/health` to get the JSON response.
+> Go to week1 `cd week3`
 
 > Run `make bench` in the terminal, it will run the benchmark test for fibonacci.
 
