@@ -25,11 +25,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(api_health_handler)
-            .service(
-
-            Files::new("/", "./dist").index_file("index.html")
-            ,
-        )
+            .service(Files::new("/", "./dist").index_file("index.html"))
     })
         .bind(("127.0.0.1", 8080))?
         .run()
