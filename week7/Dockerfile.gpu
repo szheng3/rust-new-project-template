@@ -1,0 +1,56 @@
+
+
+# Use a Rust base image
+FROM nvidia/cuda:11.0.3-runtime-ubuntu20.04
+
+# Update the package repository and install dependencies
+# Get Ubuntu packages
+
+
+# Update new packages
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
+
+RUN apt-get update
+RUN apt-get install -y -q
+
+RUN apt-get install dialog apt-utils -y
+RUN apt-get install -y \
+    build-essential \
+    curl \
+    pkg-config \
+    libssl-dev
+
+# Get Rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+# Add .cargo/bin to PATH
+ENV PATH="/root/.cargo/bin:${PATH}"
+ENV TORCH_CUDA_VERSION="cu117"
+
+# Check cargo is visible
+RUN cargo --help
+
+
+## Add the PyTorch repository
+#RUN add-apt-repository ppa:ubuntu-toolchain-r/test
+
+# Update the package repository and install PyTorch
+
+# Set the working directory
+WORKDIR /app
+# Copy the application code
+COPY . .
+#ENV LIBTORCH='/app/libtorch'
+#ENV LD_LIBRARY_PATH='${LIBTORCH}/lib:$LD_LIBRARY_PATH'
+
+RUN make test
+
+# Build the application
+RUN cargo build --release
+
+# Expose the application port
+EXPOSE 8000
+
+# Set the command to run when the container starts
+CMD ["cargo", "run", "--release"]
