@@ -82,6 +82,7 @@ curl --location 'http://localhost:8000/api/summary' \
 ```
 ### Results
 ![image](./assets/log.png)
+![image](./assets/log2.png)
 
 ## References
 
