@@ -9,7 +9,6 @@ use actix_web::web::Json;
 use exitfailure::ExitFailure;
 use futures::{StreamExt, TryStreamExt};
 use log::{debug, error, info, Level, log_enabled};
-use rust_bert::pipelines::common::ModelType;
 use serde::Deserialize;
 use serde::Serialize;
 use std::fs;
@@ -18,7 +17,6 @@ use std::mem::drop;
 use std::path::PathBuf;
 use std::sync::Once;
 use std::thread;
-use tch::Device;
 
 
 async fn save_file(mut field: Field) -> Result<String, std::io::Error> {
@@ -65,7 +63,7 @@ async fn upload(mut payload: Multipart) -> impl Responder {
     while let Ok(Some(mut field)) = payload.try_next().await {
         match save_file(field).await {
             Ok(file_path) => {
-                println!("result: {}", result);
+                println!("result: {}", file_path);
                 results.push(FileResult {
                     message: file_path.to_string(),
                 });
